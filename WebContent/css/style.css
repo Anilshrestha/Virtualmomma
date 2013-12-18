@@ -1,0 +1,192 @@
+body{
+  background-color:#E6E6FA ;
+}
+
+.header{
+	background: #000;
+	height:95px;
+	width:100%;
+	border: 1px solid green;
+	
+}
+
+.logo{
+	float:left;
+	text-align:centre;
+	font-family:action man shaded;
+	font-size:12px;
+	border: 1px solid #cccccc;
+	width:40%;
+	position: absolute;
+	color:green;
+}
+
+.login{
+	float:right;
+	border: 1px solid #cccccc;
+	margin-top:20px;
+	font-size:12px;
+	position: static;
+	color:green;
+}
+
+
+.inputbox {
+  width:170px;
+  background-color:transparent;
+  
+  text-align: center;
+  color:green;
+  
+  
+  }
+
+.slogan{
+	font-family:chiller;
+	font-color:green;
+	font-size:25px;
+	float:right;
+}
+
+.submitButton {
+  
+  
+  background: black;
+  border: 1px solid #cccccc; 
+  text-align: centre;
+  width: auto;
+  padding: 2px 3px 2px 3px;
+  color:green;
+  
+}
+.signupButton{
+	border: 1px solid #cccccc;
+	background: black;
+	float:right;
+	width: 100px;
+	height:30px;
+  	padding: 2px 3px 2px 3px;
+  	margin-right: 5px;
+  	color:green;
+}
+
+a.link:hover{
+	float:right;
+	color:green;
+	
+}
+a.link{
+	color:green;
+}
+
+.signup{
+	width:100%;
+	height:500px;
+	margin-top:5px;
+	border:1px solid red;
+}
+
+.rsignup{
+	float:right;
+	width:400px;
+	border:1px solid red;
+	height:500px;
+}
+
+.logout_refine{
+	
+	width:375px;
+	height:30px;
+	float:right;
+	text-align: center;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	margin-right:5px;
+	-moz-border-radius: 15px;
+	border-radius: 10px;
+	background:#E6E6FA;
+	color:green;
+	border:1px solid black;
+	position:relative;
+	
+}
+.lsignup{
+	width:375px;
+	height:230px;
+	float:right;
+	margin-top:25px;
+	margin-left:100px;
+}
+
+#quotes { background: #E6E6FA;position:fixed;}
+
+.textItem{
+	color:black;
+	font-size:22px;
+	font-family:chiller;
+}
+
+.author{
+	color:red;
+}
+
+.remaining{
+	margin-left: 20px;
+}
+
+.footer {
+	
+	border: 1px solid red;
+	width:100%;
+	height:60px;
+	text-align: center;
+	color:green;
+	
+}
+
+.xyz{
+	padding-top:5px;
+	
+	width:500px;
+	float:left;
+	height:200px;
+}
+
+.bodybox{
+	width:100%;
+	height:565px;
+	border:1px solid green;
+}
+
+.menu_panel{
+	width:150px;
+	height:200px;
+	margin-top:150px;
+}
+
+.userloggedButton{
+	width:150px;
+}
+
+.RecipeClass {
+	height:200px;
+}
+
+.RecipeForm{
+	margin-top:10px;
+	margin-left: 30px;
+	
+}
+
+.InvitationForm{
+	margin-top:10px;
+	margin-left: 40px;
+}
+
+.chooseRecipe{
+	margin-left: 40px;
+}
+
+
+
+
