@@ -28,13 +28,12 @@
     <servlet-name>Invite</servlet-name>
     <url-pattern>/invite</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>ImageServlet</servlet-name>
     <servlet-class>com.java.vm.controller.ImageServlet</servlet-class>
-</servlet>
-<servlet-mapping>
+  </servlet>
+  <servlet-mapping>
     <servlet-name>ImageServlet</servlet-name>
-    <url-pattern>/images/*</url-pattern>
-</servlet-mapping>
+    <url-pattern>/image/*</url-pattern>
+  </servlet-mapping>
 </web-app>

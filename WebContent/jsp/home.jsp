@@ -10,7 +10,7 @@ ransitional//EN" "http://www.w3.org/
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<title>Implementing css and javascript</title>
+<title>Virtual Momma</title>
 
 <link rel="stylesheet" href="css/style.css" type="text/css"></link>
 </head>
@@ -45,21 +45,21 @@ ransitional//EN" "http://www.w3.org/
   	<div id="recipe_listing">
   	<div class="signup">
   		<div class="xyz">
-  			<table border = "1" height = "10" width = "100">
-	
-				<tr>
-					<th>Choose Recipes</th>
-				</tr>
-				
-				<c:forEach items="${recipeImageList}" var="imageName">
-    				<td> ${recipeImageList.image}</td>
-				</c:forEach>
-				
-	
-				
-			</table>
   			
-  			
+	
+		<table border =1 width ="927" height="491">
+		<tr>
+			<c:forEach items="${recipeList}" var ="recipe">
+				<td><img src ="image/${recipe.key}"/>
+					<br/>
+					By:<c:out value ="${recipe.value}"></c:out>
+				</td>
+				
+			</c:forEach>				
+				
+    	<tr>			
+		</table>
+	
   		</div>
   		
   		<div class="rsignup">

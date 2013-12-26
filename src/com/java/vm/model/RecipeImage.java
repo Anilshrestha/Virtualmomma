@@ -1,52 +1,20 @@
 package com.java.vm.model;
 
-import java.sql.Blob;
-
-
-
-
-
 
 public class RecipeImage {
-	public int imageId;
-	public String imageName;
-	public Blob image;
-	/**
-	 * @return the image
-	 */
-	public Blob getImage() {
-		return image;
+	public int imageid;
+	public int getImageid() {
+		return imageid;
 	}
-	/**
-	 * @param image the image to set
-	 */
-	public void setImage(Blob image) {
-		this.image = image;
+	public void setImageid(int imageid) {
+		this.imageid = imageid;
 	}
-	/**
-	 * @return the imageId
-	 */
-	public int getImageId() {
-		return imageId;
+	public String getImagename() {
+		return imagename;
 	}
-	/**
-	 * @param imageId the imageId to set
-	 */
-	public void setImageId(int imageId) {
-		this.imageId = imageId;
+	public void setImagename(String imagename) {
+		this.imagename = imagename;
 	}
-	/**
-	 * @return the imageName
-	 */
-	public String getImageName() {
-		return imageName;
-	}
-	/**
-	 * @param imageName the imageName to set
-	 */
-	public void setImageName(String imageName) {
-		this.imageName = imageName;
-	}
+	public String imagename;
 	
-
 }

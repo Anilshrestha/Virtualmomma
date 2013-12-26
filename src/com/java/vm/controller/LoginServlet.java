@@ -1,10 +1,9 @@
 package com.java.vm.controller;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.ServletException;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.java.vm.model.Recipe;
 import com.java.vm.model.UserBean;
 import com.java.vm.service.UserDAO;
 
@@ -25,30 +23,22 @@ public class LoginServlet extends HttpServlet {
        int max = 10;
        int min = 1;
 //       int randomNumber = 1+(int)Math.random()*((max-min)+1);
-       int randomId =2;
+       
+       List<Integer> r = new ArrayList<Integer>();
+       
+       
+       
+       
+       
  
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		try {
-			OutputStream out = response.getOutputStream();
-			List<Recipe> recipe = udao.returnRecipe();
-//			List<RecipeImage>recipeImage= udao.returnRecipeImage(randomId);
-			List<Blob>recipeImage= udao.returnRecipeImage(randomId);
-			for (Blob image : recipeImage) {
-				  response.setContentType("image/gif");
-	    		  InputStream in = image.getBinaryStream();
-	    		  int length = (int) image.length();
-	    		  int bufferSize = 1024;
-	    		  byte[] buffer = new byte[bufferSize];
-	    		  while ((length = in.read(buffer)) != -1) {
-	    		  out.write(buffer, 0, length);
-	    		  }
-	    		  in.close();
-	    		  out.flush();
-				
-				
-			}
 			
+			
+			
+//			List<RecipeImage>recipeImage= udao.returnRecipeImage(randomId);
+			//List<RecipeImage>recipeName= udao.returnRecipeName(randomId);
+//			List<String>rName= udao.returnRName(randomId);
 			
 			String q1 = request.getParameter("submitLogin");
 			if(q1 !=null){
@@ -65,10 +55,17 @@ public class LoginServlet extends HttpServlet {
 					request.getRequestDispatcher("/jsp/userLogged.jsp").forward(request, response);
 				}
 			}else{
-//				request.setAttribute("recipeList", recipe);
-//				request.setAttribute("recipeImageList",recipeImage);
-//				response.sendRedirect("cssScript.jsp");
+	    			r.add(1);
+   			       r.add(2);
+			       r.add(3);
+				for (Integer a : r) {
+					Map<String,List<String>> recipe = udao.returnRecipe(a);
+					request.setAttribute("recipeList", recipe);
+					
+					
+				}
 				request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
+				
 				
 				
 			}
