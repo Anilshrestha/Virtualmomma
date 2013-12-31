@@ -68,11 +68,9 @@ public class ImageServlet extends HttpServlet {
         }
 
         // Init servlet response.
-//        response.reset();
         response.setBufferSize(DEFAULT_BUFFER_SIZE);
         response.setContentType(contentType);
         response.setHeader("Content-Length", String.valueOf(image.length()));
-//        response.setHeader("Content-Disposition", "inline; filename=\"" + image.getName() + "\"");
 
         // Prepare streams.
         BufferedInputStream input = null;

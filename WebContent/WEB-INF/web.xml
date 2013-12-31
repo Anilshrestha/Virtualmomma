@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>VirtualMomma</display-name>
   <welcome-file-list>
-    <welcome-file>/index</welcome-file>
+    <welcome-file>/jsp/home.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
     <servlet-name>LoginServlet</servlet-name>
@@ -13,12 +13,12 @@
     <url-pattern>/index</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>RecipeAdd</servlet-name>
-    <servlet-class>com.java.vm.controller.RecipeAdd</servlet-class>
+    <servlet-name>Favorite</servlet-name>
+    <servlet-class>com.java.vm.controller.Favorite</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>RecipeAdd</servlet-name>
-    <url-pattern>/add</url-pattern>
+    <servlet-name>Favorite</servlet-name>
+    <url-pattern>/favorite</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>Invite</servlet-name>
@@ -35,5 +35,29 @@
   <servlet-mapping>
     <servlet-name>ImageServlet</servlet-name>
     <url-pattern>/image/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ViewRecipe</servlet-name>
+    <servlet-class>com.java.vm.controller.ViewRecipe</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewRecipe</servlet-name>
+    <url-pattern>/view</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AddRecipeIngredient</servlet-name>
+    <servlet-class>com.java.vm.controller.AddRecipeIngredient</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddRecipeIngredient</servlet-name>
+    <url-pattern>/ingredients</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>UserLogged</servlet-name>
+    <servlet-class>com.java.vm.controller.UserLogged</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserLogged</servlet-name>
+    <url-pattern>/logged</url-pattern>
   </servlet-mapping>
 </web-app>

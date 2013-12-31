@@ -3,6 +3,8 @@ package com.java.vm.model;
 
 public class RecipeImage {
 	public int imageid;
+	public String imagename;
+	
 	public int getImageid() {
 		return imageid;
 	}
@@ -15,6 +17,6 @@ public class RecipeImage {
 	public void setImagename(String imagename) {
 		this.imagename = imagename;
 	}
-	public String imagename;
+	
 	
 }

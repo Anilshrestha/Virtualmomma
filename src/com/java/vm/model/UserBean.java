@@ -9,6 +9,13 @@ public class UserBean {
 	private String mName;
 	private String lName;
 	private String password;
+	private int userid;
+	public int getUserid() {
+		return userid;
+	}
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
 	public boolean valid;
 	
 	

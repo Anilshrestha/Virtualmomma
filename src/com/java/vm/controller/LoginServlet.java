@@ -3,7 +3,6 @@ package com.java.vm.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.ServletException;
@@ -12,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.java.vm.model.NewsFeed;
+import com.java.vm.model.Recipe;
+import com.java.vm.model.RecipeImage;
 import com.java.vm.model.UserBean;
 import com.java.vm.service.UserDAO;
 
@@ -33,40 +35,59 @@ public class LoginServlet extends HttpServlet {
  
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			String login = request.getParameter("submitLogin");
+			String signup = request.getParameter("signup");
 			
-			
-			
-//			List<RecipeImage>recipeImage= udao.returnRecipeImage(randomId);
-			//List<RecipeImage>recipeName= udao.returnRecipeName(randomId);
-//			List<String>rName= udao.returnRName(randomId);
-			
-			String q1 = request.getParameter("submitLogin");
-			if(q1 !=null){
+			if(login !=null){
 				UserBean user = new UserBean();
 				user.setEmail(request.getParameter("email"));
 				user.setPassword(request.getParameter("password"));
 				
 				user = UserDAO.login(user);
-//				request.setAttribute("recipeImageList",recipeImage);
 				
 				if(user.isValid()) {
-					HttpSession session = request.getSession(true);
+					HttpSession session = request.getSession();
 					session.setAttribute("currentSessionUser", user);
-					request.getRequestDispatcher("/jsp/userLogged.jsp").forward(request, response);
-				}
-			}else{
-	    			r.add(1);
-   			       r.add(2);
-			       r.add(3);
-				for (Integer a : r) {
-					Map<String,List<String>> recipe = udao.returnRecipe(a);
-					request.setAttribute("recipeList", recipe);
 					
+					int newsFeedId = user.getUserid();
+					System.out.println("newsfeedid="+newsFeedId);
 					
+					List<NewsFeed>names = udao.getIdNewsFeed(newsFeedId);
+					
+						  request.setAttribute("map", names);
+						
+						  request.getRequestDispatcher("/jsp/userLogged.jsp").forward(request, response);
+						  
 				}
-				request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
 				
+			}else if(signup != null){
+				String fname=request.getParameter("FName");
+				String lname=request.getParameter("LName");
+				String email=request.getParameter("useremail");
+				String password=request.getParameter("userpassword");
 				
+				try {
+					udao.insertNewUser(fname,lname,email,password);
+					response.sendRedirect("/VirtualMomma/index");
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			else{
+	    			
+			       int[] arr ={1,2,3,4,5,6,7,8,9,10,11,12,20,19,18};
+				
+			       List<RecipeImage> recipe = udao.returnRecipeImage(arr);
+			       List<UserBean> user = udao.returnUserName(arr);
+			       List<Recipe>recipeName= udao.returnRecipeName(arr);
+			       
+			       request.setAttribute("imageList", recipe);
+			       request.setAttribute("userList", user);
+			       request.setAttribute("recipeList", recipeName);
+			       
+			       request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
 				
 			}
 			
@@ -76,7 +97,6 @@ public class LoginServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		
 		
 	}
 
