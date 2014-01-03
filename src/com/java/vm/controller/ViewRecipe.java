@@ -36,14 +36,20 @@ public class ViewRecipe extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
 			imageid = Integer.parseInt(request.getParameter("imageid"));
 				
 			List<Ingredient> ingredients = udao.showIngredient(imageid);
 			List<Recipe> recipeDes = udao.showRecipe(imageid);
-			request.setAttribute("ingredientList", ingredients);
-			request.setAttribute("recipe",recipeDes);
-			request.getRequestDispatcher("/jsp/showRecipe.jsp").forward(request, response);
-		
+			
+			for (int i = 0; i < recipeDes.size(); i++) {
+
+				request.setAttribute("ingredientList", ingredients);
+				request.setAttribute("recipe",recipeDes);
+				request.getRequestDispatcher("/jsp/showRecipe.jsp").forward(request, response);
+				
+			}
+					
 	}
 
 	/**

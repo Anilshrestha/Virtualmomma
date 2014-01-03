@@ -19,21 +19,28 @@
  </div>
  <div>
 	 <h1>Ingredients:</h1><br/>
-	 <c:forEach var ="ing" items ="${ingredientList}" >
-	 	${ing.ingredientname}
+	 <table>
+	 
+	 <c:forEach var ="ing" items ="${ingredientList}" varStatus="counter">
+	 <tr>	<td class="abc">
+	 	${counter.count}) ${ing.ingredientname} 
 	 	${ing.quantity}
 	 	${ing.unit}
+	 </td></tr>	
 	 </c:forEach>
+	 
+	 </table>
  </div>
  
  <div>
 	<h1>Method:</h1><br/>
 	<table>
 	
-		<c:forEach  var = "recipes" items="${recipe}">
+		
+		<c:forEach  var = "recipes" items="${recipe}" varStatus="counter">
 		
 				${recipes.description}
-						
+					
 		</c:forEach>
 	</table>
 </div>	

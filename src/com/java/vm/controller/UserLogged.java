@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.java.vm.model.Recipe;
+import com.java.vm.model.UserBean;
 import com.java.vm.service.UserDAO;
 
 /**
@@ -46,6 +47,13 @@ public class UserLogged extends HttpServlet {
 			request.getRequestDispatcher("/jsp/recipe.jsp").forward(request, response);
 		} 
 		else if(invite != null){
+			
+			int userid = Integer.parseInt(request.getParameter("newsfeed"));
+			List<Recipe> recipes = udao.showUserAddedRecipe(userid);
+			List<UserBean> userFriends = udao.retrieveUserFriends(userid);
+			request.setAttribute("availableRecipe", recipes);
+			request.setAttribute("userFriends", userFriends);
+			
 			request.getRequestDispatcher("/jsp/invite.jsp").forward(request, response);
 		}
 		else if(favorite != null){
@@ -55,6 +63,8 @@ public class UserLogged extends HttpServlet {
 			request.getRequestDispatcher("/jsp/favorite.jsp").forward(request, response);
 		}
 	}
+	
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

@@ -45,7 +45,7 @@ public class AddRecipeIngredient extends HttpServlet {
 			udao.test(recipename,userid,description,status);
 			request.setAttribute("successmsg","Added Successfully" );
 			request.setAttribute("recipeName",recipename );
-			request.getRequestDispatcher("/jsp/test.jsp").forward(request, response);
+			request.getRequestDispatcher("/jsp/Recipe.jsp").forward(request, response);
 			
 		}
 		
@@ -55,7 +55,7 @@ public class AddRecipeIngredient extends HttpServlet {
 		
 			udao.insingredient(ingredientName,quantity,recipeid,unit);
 			request.setAttribute("successmsg","Added Successfully" );
-			request.getRequestDispatcher("/jsp/test.jsp").forward(request, response);
+			request.getRequestDispatcher("/jsp/recipe.jsp").forward(request, response);
 		}
 		else if(share != null){
 			udao.recipeshare(recipeid,userid);
@@ -71,8 +71,6 @@ public class AddRecipeIngredient extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserDAO udao = new UserDAO();
-		System.out.println("in recipeadd post metod");
-		
 		String recName=request.getParameter("recipeName");
 		System.out.println("recipe name="+recName);
 		String ingdtName = request.getParameter("ingredientName");

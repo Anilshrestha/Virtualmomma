@@ -165,15 +165,6 @@ a.link{
 	border:1px solid green;
 }
 
-.menu_panel{
-	width:150px;
-	height:100px;
-	margin-top:130px;
-	border:1px solid green;
-	
-	
-}
-
 .userloggedButton{
 	width:150px;
 }
@@ -202,6 +193,7 @@ img{
 	width:100px;
 	height:100px;
 	padding-left:20px;
+	
 }
 
 table{
@@ -215,36 +207,21 @@ b{
 	color:green;
 }
 
-.outernewsfeed{
-	border:1px solid red;
-	width:99%;
-	height:500px;
-	margin-left:5px;
-	margin-right:5px;
-	float:right;
-	margin-top:30px;
-	
-}
-.innernewsfeed{
-	border:1px solid black;
-	width:1000px;
-	height:487px;
-	float:right;
-	margin:5px 5px 10px 5px;
-	overflow:auto;
-}
 
-p{
-	margin-left:15px;
-	color:green;
-	font-size:20px;
-}
+
 
 .favoriterecipe{
 	margin-left:30px;
 	margin-top:10px;
 	text-align:center;
 }
+
+.abc{
+	width:400px;
+	
+}
+
+
 
 
 

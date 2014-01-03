@@ -505,8 +505,8 @@ public class UserDAO {
 		final String USER = "root";
 		final String PASS = "mysql";
 		
-		String query = "select R.recipeid,R.recipename,F.fname,U.userid,I.imagename,I.imageid,U.friendid from userfriends U inner join sharedrecipe S on U.friendid = S.userid inner join recipe R on S.userid=R.userid and S.recipeid=R.recipeid inner join user F on F.userid = R.userid inner join image I on I.imageid=R.recipeid where U.userid="+newsFeedId;
-		
+//		String query = "select R.recipeid,R.recipename,F.fname,U.userid,I.imagename,I.imageid,U.friendid,E.invitationTypeChoosen,E.recipeNameChoosen,E.invitedDate from userfriends U inner join sharedrecipe S on U.friendid = S.userid inner join recipe R on S.userid=R.userid and S.recipeid=R.recipeid inner join user F on F.userid = R.userid inner join image I on I.imageid=R.recipeid inner join invitation E on U.friendid = E.friendid where U.userid="+newsFeedId;
+		String query = "select R.recipeid,R.recipename,concat(F.fname,' ',F.lname) as fullname,U.userid,I.imagename,I.imageid,U.friendid from userfriends U inner join sharedrecipe S on U.friendid = S.userid inner join recipe R on S.userid=R.userid and S.recipeid=R.recipeid inner join user F on F.userid = R.userid inner join image I on I.imageid=R.recipeid where U.userid="+newsFeedId;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(DB_URL,USER,PASS);
@@ -515,15 +515,20 @@ public class UserDAO {
 			resultSet = st.executeQuery(query);
 			while(resultSet.next()){
 				NewsFeed nfeed = new NewsFeed();
+				System.out.println("inside result Set");
 				nfeed.setRecipename(resultSet.getString("recipename"));
-				nfeed.setUsername(resultSet.getString("fname"));
+				nfeed.setUsername(resultSet.getString("fullname"));
 				nfeed.setImagename(resultSet.getString("imagename"));
 				nfeed.setFriendid(resultSet.getInt("recipeid"));
 				nfeed.setImageid(resultSet.getInt("imageid"));
 				nfeed.setFriendid(resultSet.getInt("friendid"));
 				nfeed.setRecipeid(resultSet.getInt("recipeid"));
 				nfeed.setUserid(resultSet.getInt("userid"));
-				
+//				nfeed.setInvitationType(resultSet.getString("invitationTypeChoosen"));
+//				nfeed.setRecipeNameChoosen(resultSet.getString("recipeNameChoosen"));
+//				String d = resultSet.getString("invitedDate");
+//				System.out.println("d="+d);
+//				nfeed.setInvitationForDate(resultSet.getString("invitedDate"));
 				newsFeed.add(nfeed);
 			}
 			 resultSet.close();
@@ -539,6 +544,7 @@ public class UserDAO {
 				e.printStackTrace();
 			}
 		}
+		System.out.println("outside newsfeed");
 		
 		return newsFeed;
 		
@@ -618,5 +624,174 @@ public class UserDAO {
 		return recipe;
 		
 	}
+
+	public List<Recipe> sendInvitation(int userid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Recipe> showUserAddedRecipe(int userid) {
+		List<Recipe> recipe = new ArrayList<>();
+		Connection conn = null;
+		Statement st = null;
+		ResultSet resultSet = null;
+		
+		final String DB_URL = "jdbc:mysql://localhost:3306/javaproject";
+		
+		final String USER = "root";
+		final String PASS = "mysql";
+		
+		String query = "select recipename from recipe where userid="+userid; 
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(DB_URL,USER,PASS);
+			
+			st = conn.createStatement();
+			resultSet = st.executeQuery(query);
+			while(resultSet.next()){
+				Recipe recipes = new Recipe();
+				recipes.setRecipeName(resultSet.getString("recipename"));
+				
+				recipe.add(recipes);
+			}
+			 resultSet.close();
+			 st.close();
+			 conn.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return recipe;
+	}
+
+	public List<UserBean> retrieveUserFriends(int userid) {
+		List<UserBean> users = new ArrayList<>();
+		Connection conn = null;
+		Statement st = null;
+		ResultSet resultSet = null;
+		
+		final String DB_URL = "jdbc:mysql://localhost:3306/javaproject";
+		
+		final String USER = "root";
+		final String PASS = "mysql";
+		
+		String query = "select U.userid,concat(U.Fname,' ',U.lname) AS fullname from user U inner join userfriends UF on U.userid=UF.friendid where UF.userid="+userid; 
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(DB_URL,USER,PASS);
+			
+			st = conn.createStatement();
+			resultSet = st.executeQuery(query);
+			while(resultSet.next()){
+				UserBean user = new UserBean();
+				user.setfName(resultSet.getString("fullname"));
+				user.setUserid(resultSet.getInt("userid"));
+				
+				users.add(user);
+			}
+			 resultSet.close();
+			 st.close();
+			 conn.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return users;
+	}
+
+	public void storeInvitation(int userid, String friendid,String invitationTypeChoosen, String recipeNameChoosen, String todayDate, String invitationDate) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		final String DB_URL = "jdbc:mysql://localhost:3306/javaproject";
+		
+		final String USER = "root";
+		final String PASS = "mysql";
+		String query = "INSERT INTO invitation(userid,friendid,invitationTypeChoosen,recipeNameChoosen, invitationSentDate, invitedDate) VALUES(?,?,?,?,?,?)";
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(DB_URL,USER,PASS);
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, userid);
+			pstmt.setString(2,friendid);	
+			pstmt.setString(3, invitationTypeChoosen);
+			pstmt.setString(4, recipeNameChoosen);
+			pstmt.setString(5, todayDate);
+			pstmt.setString(6, invitationDate);
+			
+			pstmt.executeUpdate();
+			pstmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public List<NewsFeed> getInvitationNewsFeed(int newsFeedId) {
+		List<NewsFeed> newsFeed = new ArrayList<>();
+		Connection conn = null;
+		Statement st = null;
+		ResultSet resultSet = null;
+		
+		final String DB_URL = "jdbc:mysql://localhost:3306/javaproject";
+		
+		final String USER = "root";
+		final String PASS = "mysql";
+		
+		String query = "select UF.friendid,concat(F.fname,' ',F.lname) as fullname,E.invitationTypeChoosen,E.invitedDate,E.recipeNameChoosen from userfriends UF inner join user F on F.userid = UF.friendid inner join invitation E on UF.friendid=E.userid where UF.userid ="+newsFeedId;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(DB_URL,USER,PASS);
+			
+			st = conn.createStatement();
+			resultSet = st.executeQuery(query);
+			while(resultSet.next()){
+				NewsFeed nfeed = new NewsFeed();
+				nfeed.setUsername(resultSet.getString("fullname"));
+				nfeed.setInvitationType(resultSet.getString("invitationTypeChoosen"));
+				nfeed.setRecipeNameChoosen(resultSet.getString("recipeNameChoosen"));
+				nfeed.setInvitationForDate(resultSet.getString("invitedDate"));
+				newsFeed.add(nfeed);
+			}
+			 resultSet.close();
+			 st.close();
+			 conn.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println("outside newsfeed");
+		
+		return newsFeed;
+		
+	}
+
 
 }

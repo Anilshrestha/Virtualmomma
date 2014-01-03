@@ -18,6 +18,7 @@ import com.java.vm.model.UserBean;
 import com.java.vm.service.UserDAO;
 
 
+//@WebServlet(name="LoginServlet",urlPatterns={"/index.html","/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	UserDAO udao = new UserDAO();
@@ -27,12 +28,6 @@ public class LoginServlet extends HttpServlet {
 //       int randomNumber = 1+(int)Math.random()*((max-min)+1);
        
        List<Integer> r = new ArrayList<Integer>();
-       
-       
-       
-       
-       
- 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String login = request.getParameter("submitLogin");
@@ -50,12 +45,17 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("currentSessionUser", user);
 					
 					int newsFeedId = user.getUserid();
-					System.out.println("newsfeedid="+newsFeedId);
 					
 					List<NewsFeed>names = udao.getIdNewsFeed(newsFeedId);
+					List<NewsFeed>invitation = udao.getInvitationNewsFeed(newsFeedId);
+					
+					for (int i = 0; i < names.size(); i++) {
+						System.out.println(names.get(i).getInvitationForDate());
+						
+					}
 					
 						  request.setAttribute("map", names);
-						
+						  request.setAttribute("invitation", invitation);
 						  request.getRequestDispatcher("/jsp/userLogged.jsp").forward(request, response);
 						  
 				}
@@ -68,7 +68,6 @@ public class LoginServlet extends HttpServlet {
 				
 				try {
 					udao.insertNewUser(fname,lname,email,password);
-					response.sendRedirect("/VirtualMomma/index");
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -90,8 +89,6 @@ public class LoginServlet extends HttpServlet {
 			       request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
 				
 			}
-			
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
